@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Store;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -15,8 +16,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = Store::all();
-        return $stores;
+        $stores = Store::paginate(10);
+
+        return view('admin.stores.index', compact('stores'));
     }
 
     /**
@@ -26,7 +28,8 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all(['id', 'name']);
+        return view('admin.stores.create', compact('users'));
     }
 
     /**
@@ -37,7 +40,7 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
